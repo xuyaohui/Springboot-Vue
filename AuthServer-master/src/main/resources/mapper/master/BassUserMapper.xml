@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teradata.repository.master.BassUserRepository">
+
+    <resultMap id="bassUser-result" type="com.teradata.model.user.BassUserDTO">
+        <result property="loginId" column="LOGIN_ID" />
+        <result property="userName" column="USER_NAME" />
+        <result property="userPhone" column="USER_PHONE" />
+    </resultMap>
+
+    <insert id="insertBassUser" parameterType="com.teradata.model.user.BassUserDTO">
+        <bind name="database" value="@com.teradata.utils.Constant@BASS_USER_DATABASE"/>
+        INSERT	INTO ${database}.SYS_BASS_USER
+            (LOGIN_ID, USER_NAME, USER_PHONE)
+        VALUES
+            (#{loginId},#{userName},#{userPhone})
+    </insert>
+
+    <delete id="deleteAllUsers">
+        <bind name="database" value="@com.teradata.utils.Constant@BASS_USER_DATABASE"/>
+        DELETE ${database}.SYS_BASS_USER
+    </delete>
+
+</mapper>
